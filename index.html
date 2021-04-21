@@ -18,7 +18,9 @@
 </head>
 
 <body id="page-top" onload="getapi()">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
+        
         async function getapi() {
             const response = await fetch("https://api.covid19india.org/state_district_wise.json");
             var data = await response.json();
@@ -50,6 +52,14 @@
                 deathsum=deathsum+deathCase[i]
                 confirmsum=confirmsum+ConformCase[i]
             }
+            l3=[['District','Total Case']]
+            l4=[['District','Total Recover',{role:'style'}]]
+
+            for(var i=0;i<dname.length;i++){
+                l3.push([dname[i],ActiveCase[i]]);
+                l4.push([dname[i],recoverCase[i],'color:#b8b8b8']);
+            }
+            console.log(l3)
             document.getElementById('activesum').innerText=activesum;
             document.getElementById('recoversum').innerText=recoversum;
             document.getElementById('deathsum').innerText=deathsum;
@@ -59,6 +69,39 @@
             console.log(deathCase);
             console.log(dname);
             console.log(recoverCase);
+
+            google.charts.load('current', {'packages':['bar']});
+            google.charts.setOnLoadCallback(drawChart);
+            google.charts.setOnLoadCallback(drawChart1);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(l3);
+
+        var options = {
+          chart: {
+            title: 'Total Active Case',
+          },
+          bars: 'horizontal' // Required for Material Bar Charts.
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+      function drawChart1() {
+        var data = google.visualization.arrayToDataTable(l4);
+
+        var options = {
+          chart: {
+            title: 'Total Recover Case',
+          },
+          bars: 'horizontal' // Required for Material Bar Charts.
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_material_1'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
         }
     </script>
     <div id="wrapper">
@@ -122,8 +165,8 @@
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">JAY RATHOD</span><img class="border rounded-circle img-profile" src="jay.png"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="http://rj2601live.tech/"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;MY WEB</a><a class="dropdown-item" href="https://github.com/jkrathod2601/CORONA-DASHBOARD"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;CODE</a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">JAY RATHOD</span><img class="border rounded-circle img-profile" src="logo.png"></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="https://github.com/jkrathod2601/CORONA-DASHBOARD"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;CODE</a>
                                         
                                     </div>
                                 </div>
@@ -199,6 +242,25 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12 col-xl-12 mb-4">
+                <div class="card shadow border-left-primary py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div id="barchart_material" style="width: 900px; height: 500px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-xl-12 mb-4">
+                <div class="card shadow border-left-primary py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div id="barchart_material_1" style="width: 900px; height: 500px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright">
@@ -210,7 +272,7 @@
                                             <li class="list-inline-item"><a href="https://github.com/jkrathod2601"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li>
                                             <li class="list-inline-item"><a href="https://twitter.com/JayRath88875779"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li>
                                             <li class="list-inline-item"><a href="https://www.instagram.com/_jay_26_01/"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-instagram fa-stack-1x fa-inverse"></i></span></a></li>
-                                            <li class="list-inline-item"><a href="https://api.whatsapp.com/send?phone=+919898560455&amp;text=Hey Jay,I am "><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-whatsapp fa-stack-1x fa-inverse"></i></span></a></li>
+                                            <li class="list-inline-item"><a href="https://api.whatsapp.com/send?phone=+917201064761&amp;text=Hey Chintan,I am "><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-whatsapp fa-stack-1x fa-inverse"></i></span></a></li>
                                         </ul><p class="copyright text-muted text-center">THANK YOU FOR VISITING </p>
                                     </div>
                                 </div>
